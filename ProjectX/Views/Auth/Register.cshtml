@@ -1,0 +1,98 @@
+﻿@using ProjectX.ViewModels;
+@model RegisterVM;
+
+<form method="POST" asp-controller="Auth" asp-action="Register">
+    <div class="login-container">
+        <div class="login-form">
+            <h3>Cadastro</h3>
+            @* required oninvalid="this.setCustomValidity('Campo obrigatório')" onchange="this.setCustomValidity('')" *@
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="text-danger">@TempData["ErrorMessage"]</div>
+
+            <input class="form-control w-100" id="nome" asp-for="Name" type="text" placeholder="Nome" />
+            <input class="w-100" id="usuario" asp-for="User" type="text" placeholder="Usuário" />
+            <input class="w-100" id="senha" asp-for="Password" type="password" placeholder="Senha" />
+            <button type="submit" onclick="" class="w-50 btn btn-primary">
+                CADASTRAR
+            </button>
+
+            @*<span asp-validation-for="Name" class="text-danger"></span>*@
+        </div>
+    </div>
+</form>
+<script>
+
+    $(document).ready(function () {
+
+        //CallController();
+
+        //altera o referrer que é usado no cabeçalho HTTP para objetos XMLHttpRequest criados depois de alterar o estado
+        // Isso evita crash de página quando tentar enviar 2 submits inválidos seguidos.
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+
+    });
+
+    function Register() {
+
+        //let nome = document.querySelector("#nome").value;
+        let usuario = document.querySelector("#usuario").value;
+        let senha = document.querySelector("#senha").value;
+
+        console.log("HERE")
+        //console.log(nome)
+        console.log(usuario)
+        console.log(senha)
+
+        let request = {
+            Id: null,
+            Name: null,
+            User: usuario,
+            Password: senha
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Index", "Dashboard")',
+            data: request
+        }).done(function (response) {
+
+            console.log("Response!!!!")
+            console.log(response)
+
+            Swal.fire({
+                title: 'Oops...',
+                text: 'Não foi possível carregar os menus. Certifique-se que o usuário possua permissão e que a rota exista.',
+                icon: 'error',
+                confirmButtonColor: '#15549a'
+            });
+
+            if (!response.success) {
+                Swal.fire({
+                    title: 'Oops!',
+                    text: response.message,
+                    icon: 'error',
+                    confirmButtonColor: '#15549a'
+                });
+            }
+
+        }).fail(function (response) {
+            Swal.fire({
+                title: 'Oops...',
+                text: 'Não foi possível carregar os menus. Certifique-se que o usuário possua permissão e que a rota exista.',
+                icon: 'error',
+                confirmButtonColor: '#15549a'
+            });
+        });
+
+        return false
+    }
+
+</script>
+
+
+
+

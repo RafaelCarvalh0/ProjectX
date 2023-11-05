@@ -1,0 +1,96 @@
+﻿@using ProjectX.ViewModels;
+@model RegisterVM;
+
+
+<form method="POST" asp-controller="Auth" asp-action="Index">
+    <div class="login-container">
+        <div class="login-form">
+            <h3>Login</h3>
+
+            @*<div asp-validation-summary="All" class="text-danger"></div>*@
+
+            <p class="text-danger">@TempData["ErrorMessage"]</p>
+
+            <span asp-validation-for="User" class="text-danger"></span>
+            <input class="w-100" id="usuario" asp-for="User" type="text" placeholder="Usuário" />
+            
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <input class="w-100" id="senha" asp-for="Password" type="password" placeholder="Senha" />
+            
+            <button type="submit" class="w-50 btn btn-success">
+                LOGIN
+            </button>
+            <p class="mt-2">Não possui conta? <a asp-controller="Auth" asp-action="Register">Clique aqui</a> para criar uma conta.</p>
+
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+
+        //CallController();
+
+        // Isso evita crash de página quando tentar enviar 2 submits inválidos seguidos.
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+
+    });
+
+    function Register() {
+
+        //let nome = document.querySelector("#nome").value;
+        let usuario = document.querySelector("#usuario").value;
+        let senha = document.querySelector("#senha").value;
+
+        console.log("HERE")
+        //console.log(nome)
+        console.log(usuario)
+        console.log(senha)
+
+        let request = {
+            Id: null,
+            Name: null,
+            User: usuario,
+            Password: senha
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Login", "Auth")',
+            data: request
+        }).done(function (response) {
+
+            console.log("Response!!!!")
+            console.log(response)
+
+            //Swal.fire({
+            //    title: 'Oops...',
+            //    text: 'Não foi possível carregar os menus. Certifique-se que o usuário possua permissão e que a rota exista.',
+            //    icon: 'error',
+            //    confirmButtonColor: '#15549a'
+            //});
+
+            if (!response.success) {
+                //Swal.fire({
+                //    title: 'Oops!',
+                //    text: response.message,
+                //    icon: 'error',
+                //    confirmButtonColor: '#15549a'
+                //});
+            }
+
+        }).fail(function (response) {
+            //Swal.fire({
+            //    title: 'Oops...',
+            //    text: 'Não foi possível carregar os menus. Certifique-se que o usuário possua permissão e que a rota exista.',
+            //    icon: 'error',
+            //    confirmButtonColor: '#15549a'
+            //});
+        });
+
+        return false
+    }
+
+</script>

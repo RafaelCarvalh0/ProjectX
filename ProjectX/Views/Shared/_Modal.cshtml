@@ -1,0 +1,53 @@
+﻿<!-- Modal preparado para agir caso algo aconteça -->
+
+@if (ViewData["Alert"] != null)
+{
+<link rel="stylesheet" href="~/css/modal.css" asp-append-version="true" />
+
+@*<h2>Janela modal</h2>
+
+<button class="_btn-outline-success" onclick="openModal('show-modal')">Abrir Modal</button>*@
+
+<div id="show-modal" class="_modal">
+    <div class="_modal-content">
+
+        <div class="_modal-header">
+            <h1>@ViewData["Alert"]</h1>
+            <span class="_modal-header-close" onclick="closeModal('show-modal')">X</span>
+        </div>
+
+        <div class="_modal-body">
+            <p>Este site está em construção, em breve ele será um sistema completo dedicado aos negócios de sua empresa.</p>
+        </div>
+
+        <div class="_modal-footer">
+            <button class="_btn-outline-success" onclick="closeModal('show-modal')">Fechar</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        //CallController();
+
+    });
+
+    function openModal(showModal){
+        //console.log("Carregar modal: ", showModal)
+        let modal = document.getElementById(showModal);
+
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidde';
+    }
+
+    function closeModal(closeModal){
+        //console.log("Fechar modal: ", closeModal)
+        let modal = document.getElementById(closeModal);
+
+        modal.style.display = 'none';
+    }
+</script>
+}

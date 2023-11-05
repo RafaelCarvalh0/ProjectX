@@ -1,0 +1,30 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft Sans Serif';
+}
+
+.login-container {  
+    background-image: url("../img/background-register.jpeg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-form {
+    border: 1px solid #819CA7;
+    width: 450px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .login-form input[type="text"],
+    .login-form input[type="password"] {
+        margin-bottom: 10px;
+        padding: 10px;
+    }

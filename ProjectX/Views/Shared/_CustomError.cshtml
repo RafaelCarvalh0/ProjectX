@@ -1,0 +1,15 @@
+﻿@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">@ViewData["ErrorMessage"]</h4>
+        <p>@ViewData["ErrorDetails"]</p>
+
+        <hr>
+
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+}
