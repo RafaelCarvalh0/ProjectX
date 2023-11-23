@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\auth.css"
     },
     {
+      "Id": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
+    },
+    {
       "Id": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\css\\modal.css",
       "PackagePath": "staticwebassets\\css\\modal.css"
     },
@@ -25,8 +29,12 @@
       "PackagePath": "staticwebassets\\img\\background-register.jpeg"
     },
     {
-      "Id": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\js\\site.js",
-      "PackagePath": "staticwebassets\\js\\site.js"
+      "Id": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\img\\user.png",
+      "PackagePath": "staticwebassets\\img\\user.png"
+    },
+    {
+      "Id": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\js\\home.js",
+      "PackagePath": "staticwebassets\\js\\home.js"
     },
     {
       "Id": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\lib\\bootstrap\\LICENSE",

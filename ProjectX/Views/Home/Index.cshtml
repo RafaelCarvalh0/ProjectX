@@ -1,8 +1,62 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+
+    <section>
+
+        <div class="row">
+
+            <div class="col col-md-2 colunas">
+                <nav class="navbar navbar-toggleable-sm box-shadow">
+                    <ul class="navbar-nav flex-grow-1 justify-content-between">
+                        <li class="nav-item text-start d-flex align-items-center">
+                            <span class="ms-2 me-2"><img src="~/img/user.png" width="20" alt="Descrição da imagem"></span>
+                            <a class="nav-link text-primary" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item text-start d-flex align-items-center">
+                            <span class="ms-2 me-2"><img src="~/img/user.png" width="20" alt="Descrição da imagem"></span>
+                            <a class="nav-link text-primary" asp-area="" asp-controller="" asp-action="">My Profile</a>
+                        </li>
+                        <li class="nav-item text-start d-flex align-items-center">
+                            <span class="ms-2 me-2"><img src="~/img/user.png" width="20" alt="Descrição da imagem"></span>
+                            <a class="nav-link text-primary" asp-area="" asp-controller="" asp-action="">Friends</a>
+                        </li>
+                        <li class="nav-item text-start d-flex align-items-center">
+                            <span class="ms-2 me-2"><img src="~/img/user.png" width="20" alt="Descrição da imagem"></span>
+                            <a class="nav-link text-primary" asp-area="" asp-controller="" asp-action="">Galery</a>
+                        </li>
+                        <hr />
+                        <li class="nav-item text-start d-flex align-items-center">
+                            <span class="ms-2 me-2"><img src="~/img/user.png" width="20" alt="Descrição da imagem"></span>
+                            <a class="nav-link text-primary" asp-area="" asp-controller="Config" asp-action="Index">Settings</a>
+                        </li>
+                        <li class="nav-item text-start d-flex align-items-center">
+                            <span class="ms-2 me-2"><img src="~/img/user.png" width="20" alt="Descrição da imagem"></span>
+                            <a class="nav-link text-primary" asp-area="" asp-controller="Auth" asp-action="Index">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="col-md-7 colunas ">
+                Content
+            </div>
+
+            <div class="col-md-3 colunas">
+                Friends
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer class="text-center">
+
+        <div class="">
+            Rodápé
+        </div>
+
+    </footer>
 </div>

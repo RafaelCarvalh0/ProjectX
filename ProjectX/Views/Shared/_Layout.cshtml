@@ -14,45 +14,49 @@
 </head>
 <body>
     <header>
+        <nav style="background-color: #4A76A8" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex">
 
-        @if (ViewData["LoggedUser"] == "Logado")
-        {
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
-                <div class="container-fluid">
-                    <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Business</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        </ul>
+                    <ul class="navbar-nav flex-grow-1 justify-content-between">
 
-                        <span class="e-icons e-download"></span>
-                        <a class="btn btn-danger mx-2 text-light" asp-controller="Auth" asp-action="Index">Logout</a>
-                        <input id="search" class="form-control me-sm-2" type="search" placeholder="Search">
-                        <a class="btn btn-secondary my-2 my-sm-0 text-light">Search</a>
-                    </div>
+                        <li id="logo" class="nav-item">
+                            <a class="navbar-brand text-light" asp-controller="Home" asp-action="Index">NerdsBook</a>
+                        </li>
+
+                        <li class="nav-item w-50">
+                            <input class="form-control" type="search" placeholder="Search">
+                        </li>
+
+                        <li class="nav-item">
+                            <span class="text-light pe-3">Rafael Henrique de Carvalho</span>
+                            <a class="" asp-controller="Config" asp-action="Profile">
+                                <img style="background-color: white; border-radius: 50%;" src="~/img/user.png" width="30" />
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-danger text-light" asp-controller="Auth" asp-action="Index">Logout</a>
+                        </li>
+
+                    </ul>
+
                 </div>
-            </nav>
-        }
-        @* else{
-            <partial name="_Modal" />
-        } *@
-
+            </div>
+        </nav>
     </header>
-    <div class="">
-        <main role="main" class="">
-            @RenderSection("css", required: false)
+
+    <main role="main" class="my-3">
+        @RenderSection("css", required: false)
+
+        <div class="container">
 
             <!-- Modal Area -->
-            <partial name="_Modal" />
+            @* <partial name="_Modal" /> *@
 
             @*<div class="container">
             <!-- Alerts -->
@@ -63,8 +67,9 @@
             </div>*@
 
             @RenderBody()
-        </main>
-    </div>
+
+        </div>
+    </main>
 
     <footer class="border-top footer text-muted">
         @* <div class="container">

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hEy3g7zQoV9a+NkTMCRGjiww5uGCvPQ2pWKbLqM2mjo=",
+  "Hash": "x0MN9hDzHk67YNakOWO/SIGkNCNR3dg8eeclSiN/DlU=",
   "Source": "ProjectX",
   "BasePath": "_content/ProjectX",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\auth.css"
+    },
+    {
+      "Identity": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\css\\home.css",
+      "SourceId": "ProjectX",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\",
+      "BasePath": "_content/ProjectX",
+      "RelativePath": "css/home.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\home.css"
     },
     {
       "Identity": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\css\\modal.css",
@@ -136,12 +153,12 @@
       "OriginalItemSpec": "wwwroot\\img\\background-register.jpeg"
     },
     {
-      "Identity": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\img\\user.png",
       "SourceId": "ProjectX",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\",
       "BasePath": "_content/ProjectX",
-      "RelativePath": "js/site.js",
+      "RelativePath": "img/user.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -150,7 +167,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\site.js"
+      "OriginalItemSpec": "wwwroot\\img\\user.png"
+    },
+    {
+      "Identity": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\js\\home.js",
+      "SourceId": "ProjectX",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\",
+      "BasePath": "_content/ProjectX",
+      "RelativePath": "js/home.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\home.js"
     },
     {
       "Identity": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

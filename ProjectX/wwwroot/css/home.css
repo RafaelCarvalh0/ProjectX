@@ -1,0 +1,33 @@
+﻿* {
+    background-color: #CCC;
+}
+
+body {
+    
+}
+
+header > div{
+    background-color: #989696;
+    border: 1px solid #D3D3D3;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+section {
+    padding: 10px;
+}
+
+.colunas{   
+    text-align: center;
+    background-color: #989696;
+    border: 1px solid #D3D3D3;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+footer > div{
+    background-color: #989696;
+    border: 1px solid #D3D3D3;
+    border-radius: 5px;
+    padding: 10px;
+}
