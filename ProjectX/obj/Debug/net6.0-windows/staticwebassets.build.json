@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "x0MN9hDzHk67YNakOWO/SIGkNCNR3dg8eeclSiN/DlU=",
+  "Hash": "CD1q16NbLqyyzyNNe+BoFbNI0qc/LuZrb01dvESxzmE=",
   "Source": "ProjectX",
   "BasePath": "_content/ProjectX",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\background-register.jpeg"
+    },
+    {
+      "Identity": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\img\\send.png",
+      "SourceId": "ProjectX",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\",
+      "BasePath": "_content/ProjectX",
+      "RelativePath": "img/send.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\send.png"
     },
     {
       "Identity": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\img\\user.png",

@@ -10,14 +10,14 @@ body {
     /*margin: 0 150px 0 0;*/
 }
 
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
     html {
         font-size: 16px;
     }
-}
+}*/
 
 header > div {
-    background-color: #CCC;
+    /*background-color: #CCC;*/
     border: 1px solid #D3D3D3;
     border-radius: 5px;
     padding: 10px;
@@ -29,10 +29,46 @@ section {
 
 .colunas {
     text-align: center;
-    background-color: #CCC;
-    border: 1px solid #D3D3D3;
+    background-color: #DDD;
+    border: 2px solid #EDEEF0;
     border-radius: 5px;
     padding: 10px;
+}
+
+.feed-post {
+    resize: none;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 15px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 80px;
+    border-radius: 5px;
+}
+
+.feed-container {
+    border-radius: 5px;
+    background-color: #FFF;
+    margin-bottom: 35px;
+}
+
+.friend-area {
+    text-align: center;
+    background-color: #DDD;
+    border: 2px solid #EDEEF0;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.friend-area a{
+    text-decoration: none;
+    color: black;
+}
+
+.window-friend {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #EEE;
 }
 
 footer > div {

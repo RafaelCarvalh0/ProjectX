@@ -53,8 +53,6 @@
     <main role="main" class="my-3">
         @RenderSection("css", required: false)
 
-        <div class="container">
-
             <!-- Modal Area -->
             @* <partial name="_Modal" /> *@
 
@@ -68,14 +66,16 @@
 
             @RenderBody()
 
-        </div>
     </main>
 
-    <footer class="border-top footer text-muted">
-        @* <div class="container">
-        &copy; 2023 - ProjectX - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>*@
+    <footer class="text-center">
+
+        <div class="">
+            Rodápé
+        </div>
+
     </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

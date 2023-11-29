@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\img\\background-register.jpeg"
     },
     {
+      "Id": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\img\\send.png",
+      "PackagePath": "staticwebassets\\img\\send.png"
+    },
+    {
       "Id": "C:\\Projetos\\ProjectX\\ProjectX\\wwwroot\\img\\user.png",
       "PackagePath": "staticwebassets\\img\\user.png"
     },
