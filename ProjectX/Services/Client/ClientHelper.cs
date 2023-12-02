@@ -31,7 +31,7 @@ namespace ProjectX.Services.Client
             DELETE
         }
 
-        public async Task<dynamic> CallWebService(string Endpoint, RequestType method, object request)
+        public async Task<dynamic> CallWebService(string Endpoint, RequestType method, object request = default(object))
         {
             try
             {
@@ -42,7 +42,7 @@ namespace ProjectX.Services.Client
                 switch (method)
                 {
                     case RequestType.GET:
-                        httpResponse = await client.GetAsync(uri); ;
+                        httpResponse = await client.GetAsync(uri);
                         break;
                     case RequestType.POST:
                         httpResponse = await client.PostAsJsonAsync(uri, request);

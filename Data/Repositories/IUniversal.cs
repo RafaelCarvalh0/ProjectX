@@ -21,7 +21,7 @@ namespace Entities.Repositories
         Task<DataRow> ExecuteDataRow(string command, CommandType type = CommandType.Text, int timeout = 30, params SqlParameter[] parameters);
     }
 
-    internal class Universal : IUniversal
+    public class Universal : IUniversal
     {
         private bool isDisposed = false;
         private SqlConnection Connection { get; set; }

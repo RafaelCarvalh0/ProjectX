@@ -3,6 +3,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//builder.Services.AddTransient<IUniversal, Universal>(provider =>
+//{
+//    return new Universal(builder.Configuration.GetConnectionString("SQL"));
+//});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

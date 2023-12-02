@@ -20,6 +20,11 @@ namespace Entities.Models
         public string Password { get; set; }
     }
 
+    public class LoginResponse
+    {
+        public int Id { get; set; }
+    }
+
     public class SigninRequest
     {
         public int Id { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ProjectX.Models;
 using ProjectX.Services.Client;
 using System.Diagnostics;
@@ -32,13 +33,16 @@ namespace ProjectX.Controllers
                 }
 
                 ClientHelper _client = new();
-                var retorno = await _client.CallWebService("Api/Login/Get", ClientHelper.RequestType.POST, request);
+                var json = await _client.CallWebService("Api/Login/Get", ClientHelper.RequestType.POST, request);
+                var retorno = new LoginResponse();
 
-                if (retorno != null)
+                if (json != null)
                 {
+                    retorno = JsonConvert.DeserializeObject<LoginResponse>(json.ToString());
                     ViewData["LoggedUser"] = "Logado";
                     ViewData["Alert"] = "Bem-Vindo";
-                    return View("~/Views/Home/Index.cshtml");
+
+                    return View("~/Views/Home/Index.cshtml", retorno);
                 }
                 else
                 {
@@ -74,7 +78,7 @@ namespace ProjectX.Controllers
                     return View("Register");
                 }
 
-                var retorno =  await _client.CallWebService("Api/Login/Create", ClientHelper.RequestType.POST, request);
+                var retorno = await _client.CallWebService("Api/Login/Create", ClientHelper.RequestType.POST, request);
 
                 if (retorno != null)
                 {

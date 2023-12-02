@@ -13,7 +13,7 @@ namespace Entities.Repositories
     public interface IUserRepository
     {
         public Task<bool?> Create(SigninRequest request);
-        public Task<bool?> Get(LoginRequest request);
+        public Task<LoginResponse> Get(LoginRequest request);
         //public Task<bool> Update(LoginRequest request);
     }
 
@@ -63,10 +63,12 @@ namespace Entities.Repositories
             return null;
         }
 
-        public async Task<bool?> Get(LoginRequest request)
+        public async Task<LoginResponse> Get(LoginRequest request)
         {
             try
             {
+                var model = new LoginResponse();
+
                 var result = await _repo.ExecuteDataTable(
                 command: "proc_login",
                 type: CommandType.StoredProcedure,
@@ -75,7 +77,12 @@ namespace Entities.Repositories
             );
 
                 if (result.Rows.Count > 0)
-                    return true;
+                {
+                    model.Id = Convert.ToInt32(result.Rows[0].ItemArray[0].ToString());
+                    return model;
+                }
+
+                return null;
             }
             catch (Exception ex)
             {

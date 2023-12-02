@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Entities.Models;
+@model LoginResponse; 
+
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -67,7 +70,7 @@
                         </div>
 
                         <div class="col col-12 text-end">
-                            <a href="https://google.com">
+                            <a asp-action="PostFeed" asp-controller="Home" asp-route-Id="@Model.Id">
                                 <img src="~/img/send.png" width="20" alt="Descrição da imagem">
                             </a>
                         </div>
@@ -80,36 +83,14 @@
                         <h4 class="text-start">Recent posts</h4>
                     </div>
 
-                    <div class="row">
+                    <div id="feed-row" class="row">
 
-                        <div class="feed-item col col-sm-1">
-                            <img src="~/img/user.png" width="20" alt="Descrição da imagem">
+                        @* <div class="feed-item col col-sm-1">
+                        <img src="~/img/user.png" width="20" alt="Descrição da imagem">
                         </div>
-                        <div style="" class="col-sm-11 feed-container ">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                        </div>
+                        <div id="feed-container" class="col-sm-11">
 
-                    </div>
-
-                    <div class="row">
-
-                        <div class="feed-item col col-sm-1">
-                            <img src="~/img/user.png" width="20" alt="Descrição da imagem">
-                        </div>
-                        <div style="" class="col-sm-11 feed-container ">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-
-                        <div class="feed-item col col-sm-1">
-                            <img src="~/img/user.png" width="20" alt="Descrição da imagem">
-                        </div>
-                        <div style="" class="col-sm-11 feed-container ">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                        </div>
+                        </div> *@
 
                     </div>
 
@@ -192,9 +173,77 @@
 <script>
 
     $(document).ready(function () {
-        var area = document.getElementById("text-area");
-
-        //area.placeholder = "Digite aqui...";
+        LoadHomePage();
     });
+
+    function LoadHomePage() {
+        let request = {
+            id: @Model.Id
+            };
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetHome", "Home")',
+            data: request
+        }).done(function (response) {
+
+            if (response.success) {
+
+                let feed_row = document.querySelector("#feed-row");
+
+                console.log(response.data[0]);
+
+                for (let x = 0; x < response.data.length; x++) {
+
+                    var img = document.createElement("img");
+                    img.src = 'https://plus.unsplash.com/premium_photo-1674478876962-6703253531c4?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcwMTU0MzQyNQ&ixlib=rb-4.0.3&q=80&w=300';
+                    img.width = 25;
+                    //img.alt = "Descrição da imagem";
+                    var div1 = document.createElement("div");
+                    div1.className = "feed-item col col-sm-2";
+                    div1.appendChild(img);
+                    
+                    var div2 = document.createElement("div");
+                    div2.id = "feed-container";
+                    div2.className = "col-sm-10";
+                    div2.innerHTML = response.data[x].postItem;       
+                    
+                    var p = document.createElement("p");
+                    var myDate = new Date(response.data[x].postData);
+                    var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                    var formattedDate = myDate.toLocaleDateString('pt-BR', options);
+                    p.style.fontSize = '12px';
+                    p.innerHTML = formattedDate;
+
+                    div1.appendChild(p);
+                    
+                    feed_row.appendChild(div1);
+                    feed_row.appendChild(div2);
+                    feed_row.appendChild(document.createElement("hr"))
+                    // console.log("")
+                    // console.log("Prego na areia")
+                    // console.log(response.data[x])
+                    // console.log("")
+                }
+                Swal.fire({
+                    title: 'Oops!',
+                    text: response.message,
+                    icon: 'error',
+                    confirmButtonColor: '#15549a'
+                });
+
+            }
+
+        }).fail(function (response) {
+            Swal.fire({
+                title: 'Oops...',
+                text: 'Não foi possível carregar os menus. Certifique-se que o usuário possua permissão e que a rota exista.',
+                icon: 'error',
+                confirmButtonColor: '#15549a'
+            });
+        });
+
+        return false;
+    }
 
 </script>

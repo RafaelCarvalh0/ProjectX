@@ -30,7 +30,7 @@ namespace Api.Controllers
         ///// 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<bool>> Get(LoginRequest request)
+        public async Task<ActionResult<LoginResponse>> Get(LoginRequest request)
         {
             try
             {

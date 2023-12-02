@@ -47,10 +47,15 @@ section {
     border-radius: 5px;
 }
 
-.feed-container {
+#feed-container {
     border-radius: 5px;
     background-color: #FFF;
     margin-bottom: 35px;
+    text-align: start;
+}
+
+.feed-item img{
+    border-radius: 50%;
 }
 
 .friend-area {
