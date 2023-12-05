@@ -23,7 +23,7 @@ namespace ProjectX.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(LoginRequest request)
+        public async Task<ActionResult> Login(LoginRequest request)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace ProjectX.Controllers
                 }
 
                 ClientHelper _client = new();
-                var json = await _client.CallWebService("Api/Login/Get", ClientHelper.RequestType.POST, request);
+                var json = await _client.CallWebService("Api/Auth/Login", ClientHelper.RequestType.POST, request);
                 var retorno = new LoginResponse();
 
                 if (json != null)
@@ -63,6 +63,36 @@ namespace ProjectX.Controllers
         }
 
         [HttpGet]
+        [Route("[action]/{user_id}")]
+        public async Task<ActionResult> Logout(int user_id)
+        {
+            try
+            {
+                if (user_id > 0)
+                {
+                    ClientHelper _client = new();
+                    var json = await _client.CallWebService($"Api/Auth/Logout/{user_id}", ClientHelper.RequestType.GET);
+                    var retorno = new LoginResponse();
+
+                    if (json != null)
+                    {
+                        ViewData["LoggedUser"] = "Deslogado";
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "POST: Auth/Logout (User_id: {0})", user_id);
+
+                //ViewData["ErrorMessage"] = "Erro!";
+                //ViewData["ErrorDetails"] = "Ocorreu um erro na resposta do serviço!";
+            }
+
+            return View("index");
+        }
+
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
@@ -78,7 +108,7 @@ namespace ProjectX.Controllers
                     return View("Register");
                 }
 
-                var retorno = await _client.CallWebService("Api/Login/Create", ClientHelper.RequestType.POST, request);
+                var retorno = await _client.CallWebService("Api/Auth/Create", ClientHelper.RequestType.POST, request);
 
                 if (retorno != null)
                 {

@@ -13,8 +13,8 @@ namespace Entities.Repositories
     public interface IUserRepository
     {
         public Task<bool?> Create(SigninRequest request);
-        public Task<LoginResponse> Get(LoginRequest request);
-        //public Task<bool> Update(LoginRequest request);
+        public Task<LoginResponse> GetLogin(LoginRequest request);
+        public Task<bool?> GetLogout(int user_id);
     }
 
     public class UserRepository : IUserRepository
@@ -46,7 +46,7 @@ namespace Entities.Repositories
             try
             {
                 var result = await _repo.ExecuteNonQuery(
-                command: "proc_adicionar_usuario",
+                command: "proc_add_user",
                 type: CommandType.StoredProcedure,
                 new SqlParameter() { ParameterName = "@p_id", Value = request.Id, SqlDbType = SqlDbType.Int },
                 new SqlParameter() { ParameterName = "@p_name", Value = request.Name, SqlDbType = SqlDbType.VarChar },
@@ -63,7 +63,7 @@ namespace Entities.Repositories
             return null;
         }
 
-        public async Task<LoginResponse> Get(LoginRequest request)
+        public async Task<LoginResponse> GetLogin(LoginRequest request)
         {
             try
             {
@@ -87,6 +87,27 @@ namespace Entities.Repositories
             catch (Exception ex)
             {
                 _logger.LogError($"LoginRequest", ex.Message, request);
+            }
+            return null;
+        }
+
+        public async Task<bool?> GetLogout(int user_id)
+        {
+            try
+            {
+                var model = new LoginResponse();
+
+                var result = await _repo.ExecuteNonQuery(
+                command: "proc_logout",
+                type: CommandType.StoredProcedure,
+                new SqlParameter() { ParameterName = "@p_user_id", Value = user_id, SqlDbType = SqlDbType.Int }
+            );
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"User_id", ex.Message, user_id);
             }
             return null;
         }
