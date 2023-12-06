@@ -1,5 +1,5 @@
 ﻿@using Entities.Models;
-@model LoginResponse; 
+@model LoginResponse;
 
 @{
     ViewData["Title"] = "Home";
@@ -161,9 +161,9 @@
                             <p>João</p>
                         </a>
                     </div>
+                    <a class="text-end text-secondary" href="https://youtube.com.br">All friends</a>
                 </div>
             </div>
-
         </div>
 
     </section>
@@ -179,7 +179,7 @@
     function LoadHomePage() {
         let request = {
             id: @Model.Id
-            };
+                    };
 
         $.ajax({
             type: "POST",
@@ -204,24 +204,24 @@
                     var formattedDate = myDate.toLocaleDateString('pt-BR', options);
 
                     feed_row.innerHTML += `
-                    <div class="feed-item col col-sm-2">
-                                <img src="https://source.unsplash.com/random/30x30">
-                                     <p style="font-size: 12px"> ${formattedDate} </p>
-                    </div>
-                            <div id="feed-container" class="col-sm-10">
-                                        ${response.data[x].postItem}                          
-                        </div>
-                    `;
+                            <div class="feed-item col col-sm-2">
+                                        <img src="https://source.unsplash.com/random/30x30">
+                                             <p style="font-size: 12px"> ${formattedDate} </p>
+                            </div>
+                                    <div id="feed-container" class="col-sm-10">
+                                                ${response.data[x].postItem}
+                                </div>
+                            `;
                     // //img.alt = "Descrição da imagem";
                     // var div1 = document.createElement("div");
                     // div1.className = "feed-item col col-sm-2";
                     // div1.appendChild(imgUsers);
-                    
+
                     // var div2 = document.createElement("div");
                     // div2.id = "feed-container";
                     // div2.className = "col-sm-10";
-                    // div2.innerHTML = response.data[x].postItem;       
-                    
+                    // div2.innerHTML = response.data[x].postItem;
+
                     // var p = document.createElement("p");
                     // var myDate = new Date(response.data[x].postData);
                     // var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -230,7 +230,7 @@
                     // p.innerHTML = formattedDate;
 
                     // div1.appendChild(p);
-                    
+
                     // feed_row.appendChild(div1);
                     // feed_row.appendChild(div2);
                     // feed_row.appendChild(document.createElement("hr"))
