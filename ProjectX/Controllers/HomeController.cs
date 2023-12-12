@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Entities.Models.Feed;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProjectX.Models;
@@ -33,8 +34,8 @@ namespace ProjectX.Controllers
 
                 model = JsonConvert.DeserializeObject<List<HomePageResponse>>(json.ToString());
 
-                if(model is not null)             
-                return Json(new { data = model, success = true, message = string.Empty });
+                if (model is not null)
+                    return Json(new { data = model, success = true, message = string.Empty });
 
             }
             catch (Exception e)
@@ -42,19 +43,19 @@ namespace ProjectX.Controllers
                 _logger.LogError(e, "POST: Home/GetHome (HomePageResponse: {0})",
                     JsonConvert.SerializeObject(model));
             }
-            
+
             //return View();
             return Json(new { data = model, success = false, message = "Não foi possível carregar a home page." });
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostFeed(int Id)
+        public async Task<IActionResult> PostFeed(FeedRequest request)
         {
             var model = new List<HomePageResponse>();
             try
             {
                 ClientHelper _client = new();
-                var json = await _client.CallWebService($"Api/Home/Get/{Id}", ClientHelper.RequestType.GET);
+                var json = await _client.CallWebService($"Api/Home/PostFeed", ClientHelper.RequestType.POST, request);
 
                 model = JsonConvert.DeserializeObject<List<HomePageResponse>>(json.ToString());
 

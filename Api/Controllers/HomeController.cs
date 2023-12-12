@@ -1,5 +1,6 @@
 ﻿using Data.Repositories;
 using Entities.Models;
+using Entities.Models.Feed;
 using Entities.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,38 @@ namespace Api.Controllers
             catch (Exception ex)
             {
                // _logger.LogError($"LoginRequest", request);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        // POST: api/Home/PostFeed
+        /// <summary>
+        /// Cria uma postagem no feed de notícias, baseado nos parâmetros enviados na requisição.
+        /// </summary>
+        /// <param name="request">Filtros</param>
+        /// <returns>Retorna um array de objetos atualizados do tipo HomePageResponse</returns>
+        /// <response code="200">Operação realizada com exito</response>
+        /// <response code="500">Ocorreu um erro interno</response>
+        /// <response code="401">Usuário não autenticado</response>
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult<IEnumerable<HomePageResponse>>> PostFeed(FeedRequest request)
+        {
+            try
+            {
+                var retorno = await _repo.Post(request);
+
+                if (retorno == null)
+                {
+                    return new EmptyResult();
+                }
+
+                return Ok(retorno);
+            }
+            catch (Exception ex)
+            {
+                // _logger.LogError($"LoginRequest", request);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
