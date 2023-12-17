@@ -54,7 +54,11 @@ section {
     text-align: start;
 }
 
-.feed-item img{
+.show-item {
+    display: flex !important;
+}
+
+.feed-item img {
     border-radius: 50%;
 }
 

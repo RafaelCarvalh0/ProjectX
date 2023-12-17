@@ -1,5 +1,7 @@
 ﻿using Entities.Models;
 using Entities.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -7,6 +9,7 @@ using System.Reflection;
 
 namespace Api.Controllers
 {
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -20,14 +23,15 @@ namespace Api.Controllers
             _repo = new UserRepository(config.Value.AWS);
         }
 
-        // Api/Auth/Login
-        ///// <summary>
-        ///// Verifica se existe um usuário na base de dados, baseado nos parâmetros da requisição
-        ///// Retorna um boolean sobre o repsonse.
-        ///// </summary>
-        ///// <param name="request"></param>
-        ///// <returns></returns>
-        ///// 
+        // POST: Api/Auth/Login
+        /// <summary>
+        /// Verifica se existe um usuário no banco de dados, baseado nos parâmetros da requisição
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Retorna o id do usuário logado</returns>
+        /// <response code = "200" > Operação realizada com exito</response>
+        /// <response code = "500" > Ocorreu um erro interno</response>
+        /// <response code = "401" > Usuário não autenticado</response>
         [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult<LoginResponse>> Login(LoginRequest request)
@@ -52,14 +56,14 @@ namespace Api.Controllers
         }
 
         // GET: api/Auth/Logout/user_id
-        // Api/Auth/Logout
-        ///// <summary>
-        ///// Verifica se existe um usuário logado na base de dados, baseado no id da requisição
-        ///// Não retorna nada.
-        ///// </summary>
-        ///// <param name="user_id"></param>
-        ///// <returns></returns>
-        ///// 
+        /// <summary>
+        /// Realiza o logout do usuário
+        /// </summary>
+        /// <param name="user_id"></param>
+        /// <returns>Não retorna nada</returns>
+        /// <response code="200">Operação realizada com exito</response>
+        /// <response code="500">Ocorreu um erro interno</response>
+        /// <response code="401">Usuário não autenticado</response>
         [HttpGet]
         [Route("[action]/{user_id}")]
         public async Task<ActionResult<bool?>> Logout(int user_id)
@@ -89,9 +93,10 @@ namespace Api.Controllers
         /// </summary>
         /// <param name="request">Filtros</param>
         /// <returns>Não retorna nada</returns>
-        /// <response code="200">Operação realizada com exito</response>
+        /// <response code="400">Má requisição</response>
         /// <response code="500">Ocorreu um erro interno</response>
-        /// <response code="401">Usuário não autenticado</response> 
+        /// <response code="201">Operação realizada com exito</response>
+        /// <response code="401">Usuário não autenticado</response>
         [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult<bool>> Create(SigninRequest request)

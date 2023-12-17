@@ -278,3 +278,4 @@ C:\Projetos\ProjectX\Api\obj\Debug\net6.0\refint\Api.dll
 C:\Projetos\ProjectX\Api\obj\Debug\net6.0\Api.pdb
 C:\Projetos\ProjectX\Api\obj\Debug\net6.0\Api.genruntimeconfig.cache
 C:\Projetos\ProjectX\Api\obj\Debug\net6.0\ref\Api.dll
+C:\Projetos\ProjectX\Api\bin\Debug\net6.0\Api.xml

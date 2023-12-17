@@ -24,15 +24,15 @@ namespace ProjectX.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetHome(int Id)
+        public async Task<IActionResult> GetFeed(int Id)
         {
-            var model = new List<HomePageResponse>();
+            var model = new List<FeedResponse>();
             try
             {
                 ClientHelper _client = new();
-                var json = await _client.CallWebService($"Api/Home/Get/{Id}", ClientHelper.RequestType.GET);
+                var json = await _client.CallWebService($"Api/Feed/Get/{Id}", ClientHelper.RequestType.GET);
 
-                model = JsonConvert.DeserializeObject<List<HomePageResponse>>(json.ToString());
+                model = JsonConvert.DeserializeObject<List<FeedResponse>>(json.ToString());
 
                 if (model is not null)
                     return Json(new { data = model, success = true, message = string.Empty });
@@ -40,7 +40,32 @@ namespace ProjectX.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "POST: Home/GetHome (HomePageResponse: {0})",
+                _logger.LogError(e, "POST: Feed/Get{id} (FeedPageResponse: {0})",
+                    JsonConvert.SerializeObject(model));
+            }
+
+            //return View();
+            return Json(new { data = model, success = false, message = "Não foi possível carregar a home page." });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetComments(int feedId)
+        {
+            var model = new List<FeedCommentsResponse>();
+            try
+            {
+                ClientHelper _client = new();
+                var json = await _client.CallWebService($"Api/Feed/GetComments/{feedId}", ClientHelper.RequestType.GET);
+
+                model = JsonConvert.DeserializeObject<List<FeedCommentsResponse>>(json.ToString());
+
+                if (model is not null)
+                    return Json(new { data = model, success = true, message = string.Empty });
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "POST: Feed/GetComments/{feedId} (FeedPageResponse: {0})",
                     JsonConvert.SerializeObject(model));
             }
 
@@ -51,13 +76,13 @@ namespace ProjectX.Controllers
         [HttpPost]
         public async Task<IActionResult> PostFeed(FeedRequest request)
         {
-            var model = new List<HomePageResponse>();
+            var model = new List<FeedResponse>();
             try
             {
                 ClientHelper _client = new();
-                var json = await _client.CallWebService($"Api/Home/PostFeed", ClientHelper.RequestType.POST, request);
+                var json = await _client.CallWebService($"Api/Feed/Post", ClientHelper.RequestType.POST, request);
 
-                model = JsonConvert.DeserializeObject<List<HomePageResponse>>(json.ToString());
+                model = JsonConvert.DeserializeObject<List<FeedResponse>>(json.ToString());
 
                 if (model is not null)
                     return Json(new { data = model, success = true, message = string.Empty });
@@ -65,7 +90,7 @@ namespace ProjectX.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "POST: Home/GetHome (HomePageResponse: {0})",
+                _logger.LogError(e, "POST: Feed/Post (FeedPageResponse: {0})",
                     JsonConvert.SerializeObject(model));
             }
 

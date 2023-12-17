@@ -61,7 +61,7 @@ namespace Api
             //services.Configure<Models.AWSKeys>(Configuration.GetSection("AWSKeys"));
             //services.Configure<Models.JWTAuth>(Configuration.GetSection("JWTAuth"));
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
             // JWT Authentication
             //var secret = Configuration["JWTAuth:Secret"] ?? "dsadmin@Rabrune.local";
@@ -99,7 +99,7 @@ namespace Api
                 {
                     Version = "v1",
                     Title = " API",
-                    Description = "API Monster",
+                    Description = "ASP.NET Core Web API",
                     Contact = new Microsoft.OpenApi.Models.OpenApiContact
                     {
                         Name = "",
@@ -132,9 +132,9 @@ namespace Api
                 //    }
                 //});
 
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
 
             });
 

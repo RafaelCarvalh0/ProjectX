@@ -71,9 +71,9 @@
 
                         <div class="col col-12 text-end">
                             @* <a asp-action="PostFeed" asp-controller="Home" asp-route-Id="@Model.Id">
-                                <img src="~/img/send.png" width="20" alt="Descrição da imagem">
+                            <img src="~/img/send.png" width="20" alt="Descrição da imagem">
                             </a> *@
-                            <a onclick="PostPage()">
+                            <a style="cursor: pointer;" onclick="PostPage()">
                                 <img src="~/img/send.png" width="20" alt="Descrição da imagem">
                             </a>
                         </div>
@@ -95,7 +95,7 @@
 
                         </div> *@
 
-                    </div>
+                    </div>                 
 
                 </div>
 
@@ -182,18 +182,18 @@
     function LoadHomePage() {
         let request = {
             id: @Model.Id
-                    };
+                        };
 
         $.ajax({
             type: "POST",
-            url: '@Url.Action("GetHome", "Home")',
+            url: '@Url.Action("GetFeed", "Home")',
             data: request
         }).done(function (response) {
 
             if (response.success) {
 
                 let feed_row = document.querySelector("#feed-row");
-
+                
                 console.log(response.data[0]);
 
                 for (let x = 0; x < response.data.length; x++) {
@@ -207,17 +207,36 @@
                     var formattedDate = myDate.toLocaleDateString('pt-BR', options);
 
                     feed_row.innerHTML += `
-                        <div>
-                            <p style="font-size: 12px; text-align: end; padding: 0; margin: 0;"> ${formattedDate} </p>
-                        </div>
-                        <div class="feed-item col col-sm-2">
-                            <img src="https://source.unsplash.com/random/30x30">
-                            <p style="font-size: 12px"> ${response.data[x].userName} </p>
-                        </div>
-                        <div id="feed-container" class="col-sm-10 p-2">
-                            ${response.data[x].feedText}
-                        </div>                                  
-                            `;
+                            <div>
+                                <p style="font-size: 12px; text-align: end; padding: 0; margin: 0;"> ${formattedDate} </p>
+                            </div>
+                            <div class="feed-item col col-sm-2">
+                                <img src="https://source.unsplash.com/random/30x30">
+                                <p style="font-size: 12px"> ${response.data[x].userName} </p>
+                            </div>
+                            <div id="feed-container" class="col-sm-10 p-2">
+                                ${response.data[x].feedText}
+                            </div>
+                                  `;
+
+                    if(response.data[x].commentCount !== null){
+                        feed_row.innerHTML += `
+                            <div style="font-size: 12px; text-align: end; padding: 0; margin-top: -50px;">
+                                         <a id="call_comments" style="text-decoration: none; cursor: pointer;" onclick="showComments(${response.data[x].postId})" >
+                                         Show Comments 
+                                     <span style="font-size: 12px; background-color: #096AD9; color: white; padding: 2px 4px 2px 4px; border-radius: 40%;"> ${response.data[x].commentCount} </span> 
+                                     </a>                               
+                            </div>
+
+                            <div style="border: 1px solid red; margin-top: -30px; margin-left: auto; border-radius: 5px; display: none;" id="comments-row" class="row col-10 text-start">
+                                
+                            </div>
+                        `
+                        }
+          
+
+                    //showComments(response.data[x].postId)
+               
                     // //img.alt = "Descrição da imagem";
                     // var div1 = document.createElement("div");
                     // div1.className = "feed-item col col-sm-2";
@@ -241,6 +260,7 @@
                     // feed_row.appendChild(div2);
                     // feed_row.appendChild(document.createElement("hr"))
                 }
+             
                 Swal.fire({
                     title: 'Oops!',
                     text: response.message,
@@ -259,7 +279,72 @@
             });
         });
 
-        return false;
+        //return false;
+    }
+
+    function showComments(feedId) {
+
+        let comments_row = document.querySelector("#comments-row");
+        let link_called = document.querySelector("#call_comments").innerHTML = "Hide Comments";
+        //let comment_user = document.querySelector("#comment-user");
+
+        if (comments_row.classList.contains("show-item")) {
+            comments_row.classList.remove("show-item");
+            //comment_user.classList.remove("show-item");
+            link_called = document.querySelector("#call_comments").innerHTML = `Show Comments`;
+            comments_row.innerHTML = '';
+        }
+
+        else {
+
+            let request = {
+                feedId: feedId
+            };
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetComments", "Home")',
+                data: request
+            }).done(function (response) {
+
+                if (response.success) {
+                    console.log("")
+                    console.log("Comentários")
+                    console.log(response.data);
+                    console.log("")
+
+                    comments_row.classList.add("show-item");
+                    //comment_user.classList.add("show-item");
+
+                    for (let x = 0; x < response.data.length; x++) {
+
+                        comments_row.innerHTML += `
+                           <div class="feed-item col col-sm-2 d-inline">
+                               <img src="https://source.unsplash.com/random/30x30">
+                               <p style="font-size: 12px"> ${response.data[x].userName} </p>
+                           </div>
+                           <div id="feed-container" class="col-sm-10 p-2">
+                                   <span style="font-size: 13px"> ${response.data[x].feedComment} </span>
+                           </div>
+                         `;
+
+                    }
+                }
+
+            }).fail(function (response) {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'Não foi possível carregar os menus. Certifique-se que o usuário possua permissão e que a rota exista.',
+                    icon: 'error',
+                    confirmButtonColor: '#15549a'
+                });
+            });
+        }
+
+        console.log("Comentario")
+        console.log(comentario)
+
+        return comentario;
     }
 
     function PostPage() {
@@ -269,8 +354,7 @@
         let request = {
             id: @Model.Id,
             text: postText
-            };
-
+        };
 
         console.log("")
         console.log("Aqui")
@@ -300,17 +384,17 @@
                     var formattedDate = myDate.toLocaleDateString('pt-BR', options);
 
                     feed_row.innerHTML += `
-                            <div>
-                                <p style="font-size: 12px; text-align: end; padding: 0; margin: 0;"> ${formattedDate} </p>
-                            </div>
-                            <div class="feed-item col col-sm-2">
-                                <img src="https://source.unsplash.com/random/30x30">
-                                <p style="font-size: 12px"> ${response.data[x].userName} </p>
-                            </div>
-                            <div id="feed-container" class="col-sm-10 p-2">
-                                ${response.data[x].feedText}
-                            </div>
-                                `;
+                                <div>
+                                    <p style="font-size: 12px; text-align: end; padding: 0; margin: 0;"> ${formattedDate} </p>
+                                </div>
+                                <div class="feed-item col col-sm-2">
+                                    <img src="https://source.unsplash.com/random/30x30">
+                                    <p style="font-size: 12px"> ${response.data[x].userName} </p>
+                                </div>
+                                <div id="feed-container" class="col-sm-10 p-2">
+                                    ${response.data[x].feedText}
+                                </div>
+                                    `;
                     // //img.alt = "Descrição da imagem";
                     // var div1 = document.createElement("div");
                     // div1.className = "feed-item col col-sm-2";

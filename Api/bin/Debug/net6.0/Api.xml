@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Api</name>
+    </assembly>
+    <members>
+        <member name="M:Api.Controllers.AuthController.Login(Entities.Models.LoginRequest)">
+            <summary>
+            Verifica se existe um usuário no banco de dados, baseado nos parâmetros da requisição
+            </summary>
+            <param name="request"></param>
+            <returns>Retorna o id do usuário logado</returns>
+            <response code = "200" > Operação realizada com exito</response>
+            <response code = "500" > Ocorreu um erro interno</response>
+            <response code = "401" > Usuário não autenticado</response>
+        </member>
+        <member name="M:Api.Controllers.AuthController.Logout(System.Int32)">
+            <summary>
+            Realiza o logout do usuário
+            </summary>
+            <param name="user_id"></param>
+            <returns>Não retorna nada</returns>
+            <response code="200">Operação realizada com exito</response>
+            <response code="500">Ocorreu um erro interno</response>
+            <response code="401">Usuário não autenticado</response>
+        </member>
+        <member name="M:Api.Controllers.AuthController.Create(Entities.Models.SigninRequest)">
+            <summary>
+            Insere um usuário com base nos dados informados na requisição.
+            </summary>
+            <param name="request">Filtros</param>
+            <returns>Não retorna nada</returns>
+            <response code="400">Má requisição</response>
+            <response code="500">Ocorreu um erro interno</response>
+            <response code="201">Operação realizada com exito</response>
+            <response code="401">Usuário não autenticado</response>
+        </member>
+        <member name="M:Api.Controllers.FeedController.Get(System.Int32)">
+            <summary>
+            Recupera todos os posts do Feed baseado no ID da requisição.
+            </summary>
+            <param name="Id">Filtros</param>
+            <returns>Retorna um array de objetos do tipo HomePageResponse</returns>
+            <response code="200">Operação realizada com exito</response>
+            <response code="500">Ocorreu um erro interno</response>
+            <response code="401">Usuário não autenticado</response>
+        </member>
+        <member name="M:Api.Controllers.FeedController.GetComments(System.Int32)">
+            <summary>
+            Retorna todos os comentarios de um post baseado no id da requisição.
+            </summary>
+            <param name="feedId">Filtros</param>
+            <returns>Retorna um array de objetos do tipo FeedCommentsResponse</returns>
+            <response code="200">Operação realizada com exito</response>
+            <response code="500">Ocorreu um erro interno</response>
+            <response code="401">Usuário não autenticado</response>
+        </member>
+    </members>
+</doc>
