@@ -219,20 +219,26 @@
                             </div>
                                   `;
 
-                    if(response.data[x].commentCount !== null){
+                    // if(response.data[x].commentCount !== null){
+
+                        //let baloonComents = ``;
+
                         feed_row.innerHTML += `
-                            <div style="font-size: 12px; text-align: end; padding: 0; margin-top: -50px;">
-                                         <a id="call_comments" style="text-decoration: none; cursor: pointer;" onclick="showComments(${response.data[x].postId})" >
-                                         Show Comments 
-                                     <span style="font-size: 12px; background-color: #096AD9; color: white; padding: 2px 4px 2px 4px; border-radius: 40%;"> ${response.data[x].commentCount} </span> 
-                                     </a>                               
+                            <div style="font-size: 12px; text-align: end; padding: 0; margin-top: -50px; display: ${response.data[x].commentCount !== null ? 'block' : 'none' };">
+
+                                            <a id="call_comments" style="text-decoration: none; cursor: pointer;" onclick="${response.data[x].commentCount !== null} ? showComments(${response.data[x].postId}, ${x}, ${response.data[x].commentCount}) : null" >
+                                Show Comments 
+                                <span id="baloon_comments" style="font-size: 12px; background-color: #096AD9; color: white; padding: 2px 4px 2px 4px; border-radius: 40%;"> ${response.data[x].commentCount} </span> 
+                                </a>                               
                             </div>
 
-                            <div style="border: 1px solid red; margin-top: -30px; margin-left: auto; border-radius: 5px; display: none;" id="comments-row" class="row col-10 text-start">
+                            <div style="margin-top: -30px; margin-left: auto; border-radius: 5px; display: none;" id="comments-row" class="row col-11 text-start">
                                 
                             </div>
+
+                            <hr>
                         `
-                        }
+                        //}
           
 
                     //showComments(response.data[x].postId)
@@ -282,21 +288,24 @@
         //return false;
     }
 
-    function showComments(feedId) {
+    function showComments(feedId, position, commentCount) {
 
-        let comments_row = document.querySelector("#comments-row");
-        let link_called = document.querySelector("#call_comments").innerHTML = "Hide Comments";
-        //let comment_user = document.querySelector("#comment-user");
-
+        let comments_row = document.querySelectorAll("#comments-row")[position];
+        let called_link = document.querySelectorAll("#call_comments")[position];
+        called_link.innerHTML = "Hide Comments";
+       
         if (comments_row.classList.contains("show-item")) {
             comments_row.classList.remove("show-item");
             //comment_user.classList.remove("show-item");
-            link_called = document.querySelector("#call_comments").innerHTML = `Show Comments`;
+            called_link.innerHTML = `
+            Show Comments
+            <span id="baloon_comments" style="font-size: 12px; background-color: #096AD9; color: white; padding: 2px 4px 2px 4px; border-radius: 40%;"> ${commentCount} </span>
+            `;
             comments_row.innerHTML = '';
         }
 
         else {
-
+           
             let request = {
                 feedId: feedId
             };
@@ -308,10 +317,10 @@
             }).done(function (response) {
 
                 if (response.success) {
-                    console.log("")
-                    console.log("Comentários")
-                    console.log(response.data);
-                    console.log("")
+                    // console.log("")
+                    // console.log("Comentários")
+                    // console.log(response.data);
+                    // console.log("")
 
                     comments_row.classList.add("show-item");
                     //comment_user.classList.add("show-item");
@@ -319,16 +328,15 @@
                     for (let x = 0; x < response.data.length; x++) {
 
                         comments_row.innerHTML += `
-                           <div class="feed-item col col-sm-2 d-inline">
+                           <div class="feed-item col col-sm-2 d-inline text-center">
                                <img src="https://source.unsplash.com/random/30x30">
-                               <p style="font-size: 12px"> ${response.data[x].userName} </p>
+                               <p style="font-size: 12px;"> ${response.data[x].userName} </p>
                            </div>
                            <div id="feed-container" class="col-sm-10 p-2">
                                    <span style="font-size: 13px"> ${response.data[x].feedComment} </span>
                            </div>
-                         `;
-
-                    }
+                         `;      
+                    }                 
                 }
 
             }).fail(function (response) {
@@ -341,10 +349,7 @@
             });
         }
 
-        console.log("Comentario")
-        console.log(comentario)
-
-        return comentario;
+        return null;
     }
 
     function PostPage() {
